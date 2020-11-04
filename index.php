@@ -57,8 +57,8 @@
                 else
                         $page = 1;
         ?>
-        <h1>php+xammp+mysql</h1>
-        <h2 align=center>계량기</h2>
+        <h1>php+xampp+mysql</h1>
+        <h2 align=center>게시판</h2>
         <table align = center>
         <thead align = "center">
         <tr>
@@ -71,10 +71,66 @@
         </tr>
 
         </thead>
- 
+        <?php 
+		if(isset($_GET["nowPage"])){
+			$nowPage=$_GET["nowPage"];
+			$nowBlock=$_GET["nowBlock"];
+		}else{
+			$nowPage=1;
+			$nowBlock=1;
+                }
+                $queryAll="select * from data";
+                $rs=mysqli_query($connect,$queryAll);
+                $totPage=ceil(mysqli_num_rows($rs)/10);
+		$totBlock=ceil($totPage/10);
+		
+		$startDataRow=($nowPage-1)*10;
+		$queryLimit="select * from data order by number desc limit $startDataRow,10";
+		$rsLimit=mysqli_query($connect,$queryLimit);
+
+
+        ?>
+        <caption style="text-align:left;caption-side:bottom"><br>
+				<?php 
+					$nowBlock=ceil($nowPage/10); //페이지번호가 10을 넘어가기 전까지 이 블록은 항상 1임
+
+					//prev 버튼
+					if($nowBlock>1){
+						$prevBlock=$nowBlock-1;
+						$prevStartPage=($prevBlock-1)*10+1;
+						print "<a href='paging.php?nowPage=$prevStartPage&nowBlock=$prevBlock'>prev</a>";
+						echo "&nbsp;&nbsp;";
+					}
+					//페이지번호 출력
+					$startPage=($nowBlock-1)*10+1;
+					$endPage=$startPage+9;
+					for($i=$startPage;$i<=$endPage;$i++){
+						if($nowPage==$i) $col="red";
+						else $col="#cccccc";
+						
+						if($i>$totPage){break;}//페이지 더 없으면 넘어강
+						echo " <a href='paging.php?nowPage=$i&nowBlock=$nowBlock'>
+						<font color=$col>".$i."</font></a> ";
+					}
+					//next 버튼
+					if($nowBlock<$totBlock){
+						echo "&nbsp;&nbsp;";
+						$nextBlock=$nowBlock+1;
+						$nextStartPage=($nextBlock-1)*10+1;
+						print " <a href='paging.php?nowPage=$nextStartPage&nowBlock=$nextBlock'>next</a>";
+					}
+				?>
+				<br>
+				<br>
+				<button type="button" onclick="location.href='notice_write.php'">새글쓰기</button>
+			</caption>
+			
+		</tfoot>
         <tbody>
-        <?php
+        <?php   
+                
                 while($rows = mysqli_fetch_assoc($result)){ //DB에 저장된 데이터 수 (열 기준)
+                     //while($row=mysqli_fetch_array($rsLimit)){
                         if($total%2==0){
         ?>                      <tr class = "even">
                         <?php   }
@@ -89,7 +145,7 @@
                 <td width = "200" align = "center"><?php echo $rows['value']?></td>
                 <td width = "50" align = "center"><?php echo $rows['degree']?></td>
                 <td width="50" align="center"><?php echo $rows['conver']?></td>
-                </tr>
+                </tr>                
         <?php
                 $total--;
                 }
@@ -97,7 +153,7 @@
         </tbody>
         </table>
         <div class = text>
-        <button><font style="cursor: hand"onClick="location.href='./write.php'">글쓰기</font></butoon>
+        <button><font style="cursor: hand"onClick="location.href='./write.php'">writing</font></butoon>
         </div>
  
  
