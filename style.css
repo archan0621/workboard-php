@@ -1,0 +1,190 @@
+h1 {
+    text-align:center;
+}
+body{
+    background-color: #D1D8FF;
+}
+div {
+    font-size: 30px;
+    text-align: center;
+}
+#header{
+    width: 100px;
+  }
+.title{
+    text-align: center;
+    margin-top: -75px;
+    margin-left: 80px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 1700px;
+}
+#main {
+    display: grid;
+    grid-template-columns: 3fr 1fr;   
+    height: 830px; 
+}
+
+#main #contents {
+    min-height: 600px; 
+    background-color: #D1D8FF;
+    margin-right: 10px;
+}
+
+#main #sidebar {
+    min-height: 500px; 
+    width: 600px;
+    background-color: #D1D8FF;
+    margin-top: -80px;
+}
+@media (max-width:600px){
+    #main {
+        display: block;    
+    }
+
+    #main #contents {  
+        margin-bottom: 10px; 
+        margin-right: 0px;
+    }
+    #main #sidebar {
+        min-height: 0;
+    }
+    .title{
+        text-align: center;
+        margin-top: -70px;
+        margin-left: 0px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        width: 700px;
+        font-size: 50px;
+    
+    }
+    *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:300px;overflow:hidden;}
+    .slide ul{height:100%;}
+    .slide li{height:100%;}
+    .slide li:nth-child(1){background-image: url("img/fisrt.png"); background-repeat: no-repeat; background-size: 500px;}
+    .slide li:nth-child(2){background-image: url("img/second.png"); background-repeat: no-repeat; background-size: 500px;}
+    .slide li:nth-child(3){background-image: url("img/third.png"); background-repeat: no-repeat; background-size: 500px;}
+    .slide li:nth-child(4){background-image: url("img/fourth.png"); background-repeat: no-repeat; background-size: 600px;}
+    nstyle{
+        color: #800000;
+        font-family: 휴먼굵은샘체;
+        font-size: 30px;
+    }
+    *, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Lato', sans-serif;
+        color: #333;
+        font-weight: 400;
+        font-size: 16px;
+      }
+      
+      table {
+        max-width: 400px;
+        margin: 80px auto;
+      }
+      
+      caption {
+        font-size: 18px;
+        font-weight: 400;
+        padding: 12px 0;
+      }
+      
+      thead th {
+        background: #0c3390;
+        color: #fff;
+        font-weight: initial;
+      }
+      
+      tr { background: #f1f1f1; }
+      
+      tr:nth-child(2n) { background: #e0e0e0; }
+      
+      th, td {
+        text-align: center;
+        font-size: 10px;
+        padding: 0px;
+      }
+      
+      tfoot tr { background: none; }
+      
+      tfoot td {
+        padding: 0px 0px;
+        font-style: italic;
+        color: #8a97a0;
+      }
+
+}
+*{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:892px;overflow:hidden;}
+    .slide ul{height:100%;}
+    .slide li{height:100%;}
+    .slide li:nth-child(1){background-image: url("img/fisrt.png"); background-repeat: no-repeat; background-size: 1300px;}
+    .slide li:nth-child(2){background-image: url("img/second.png"); background-repeat: no-repeat; background-size: 1300px;}
+    .slide li:nth-child(3){background-image: url("img/third.png"); background-repeat: no-repeat; background-size: 1300px;}
+    .slide li:nth-child(4){background-image: url("img/fourth.png"); background-repeat: no-repeat; background-size: 1300px;}
+    nstyle{
+        color: #800000;
+        font-family: 휴먼굵은샘체;
+        font-size: 30px;
+    }
+
+    *, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Lato', sans-serif;
+        color: #333;
+        font-weight: 400;
+        font-size: 16px;
+      }
+      
+      table {
+        max-width: 960px;
+        margin: 80px auto;
+      }
+      
+      caption {
+        font-size: 18px;
+        font-weight: 400;
+        padding: 12px 0;
+      }
+      
+      thead th {
+        background: #0c3390;
+        color: #fff;
+        font-weight: initial;
+      }
+      
+      tr { background: #f1f1f1; }
+      
+      tr:nth-child(2n) { background: #e0e0e0; }
+      
+      th, td {
+        text-align: center;
+        font-size: 27px;
+        padding: 24px;
+        padding-top: -1000x;
+      }
+      
+      tfoot tr { background: none; }
+      
+      tfoot td {
+        padding: 12px 2px;
+        font-style: italic;
+        color: #8a97a0;
+      }
+      .login{
+        margin-left: 2px; 
+        margin-top: -400px;
+        width: 100px;
+      }

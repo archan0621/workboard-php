@@ -3,6 +3,9 @@
 <html>
 <head>
         <meta charset = 'utf-8'>
+        <link rel="stylesheet" href="page.css">
+        <link rel="stylesheet" href="bootstrap.css">
+        <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <style>
         table{
@@ -37,13 +40,17 @@
                 $query ="select * from data order by number desc";
                 $result = $connect->query($query);
                 $total = mysqli_num_rows($result);
- 
+                
                 session_start();
                 
                 if(isset($_SESSION['userid'])) {
                         echo $_SESSION['userid'];?>님이(가) 접속중입니다.
+                        <button onclick="location.href='./logout.php'" style="margin-left:200px; vertical-align=top;">로그아웃</button>
+                        
                         <br/>
-                <button onclick="location.href='./logout.php'" style="margin-left:200px; vertical-align=top;">로그아웃</button>
+                        <button><font style="cursor: hand"onClick="location.href='./write.php'">글 쓰기</font></button>
+                        <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
+                
         <?php
                 }
                 else {
@@ -57,12 +64,105 @@
                 else
                         $page = 1;
         ?>
+
+<?php
+        if(isset($_GET['page'])) {
+
+                $page = $_GET['page'];
+
+        } else {
+
+                $page = 1;
+
+        }
+        $sql = 'select count(*) as cnt from data order by number desc';
+
+        $result = $connect->query($sql);
+
+        $row = $result->fetch_assoc();
+
+        $allPost = $row['cnt']; 
+
+        $onePage = 15; 
+
+        $allPage = ceil($allPost / $onePage); 
+
+        if($page < 1 || ($allPage && $page > $allPage)) {
+            ?>
+                    <script>
+                        alert("존재하지 않는 페이지입니다.");
+                        history.back();
+                </script>
+        <?php
+
+                exit;
+
+        }
+        $oneSection = 10; 
+
+        $currentSection = ceil($page / $oneSection);
+
+        $allSection = ceil($allPage / $oneSection); 
+
+        $firstPage = ($currentSection * $oneSection) - ($oneSection - 1); 
+
+        if($currentSection == $allSection) {
+                     $lastPage = $allPage; 
+        } else {
+                $lastPage = $currentSection * $oneSection;
+        }
+        $prevPage = (($currentSection - 1) * $oneSection); 
+
+        $nextPage = (($currentSection + 1) * $oneSection) - ($oneSection - 1); 
+
+        $paging = '<ul>'; 
+
+        if($page != 1) { 
+
+                $paging .= '<li class="page page_start"><a href="./index.php?page=1">처음</a></li>';
+
+        }
+        
+        if($currentSection != 1) { 
+
+                $paging .= '<li class="page page_prev"><a href="./index.php?page=' . $prevPage . '">이전</a></li>';
+
+        }
+
+        for($i = $firstPage; $i <= $lastPage; $i++) {
+                if($i == $page) {
+                        $paging .= '<li class="page current">' . $i . '</li>';
+                } else {
+                        $paging .= '<li class="page"><a href="./index.php?page=' . $i . '">' . $i . '</a></li>';
+                }
+        }
+       
+        if($currentSection != $allSection) { 
+                $paging .= '<li class="page page_next"><a href="./index.php?page=' . $nextPage . '">다음</a></li>';
+        }
+
+       
+        if($page != $allPage) { 
+                $paging .= '<li class="page page_end"><a href="./index.php?page=' . $allPage . '">끝</a></li>';
+        }
+        $paging .= '</ul>';
+
+       
+
+        $currentLimit = ($onePage * $page) - $onePage; 
+
+        $sqlLimit = ' limit ' . $currentLimit . ', ' . $onePage; 
+
+        $sql = 'select * from ( select @rownum:=@rownum+1  no, 	A.* from data A, (select @rownum := 0) r where  1=1 order by number desc ) list' . $sqlLimit; //원하는 개수만큼 가져온다. (0번째부터 20번째까지
+
+        $result = $connect->query($sql);
+        ?>
         <h1>php+xampp+mysql</h1>
         <h2 align=center>게시판</h2>
         <table align = center>
         <thead align = "center">
         <tr>
-        <td width ="80" align="center">고유번호</td>
+        <td width ="80" align="center">고유번호</td> <!--고유번호-->
         <td width = "50" align="center">계량기 번호</td>
         <td width = "500" align = "center">데이터 입력시간</td>
         <td width = "100" align = "center">적산치</td>
@@ -71,75 +171,23 @@
         </tr>
 
         </thead>
-        <?php 
-		if(isset($_GET["nowPage"])){
-			$nowPage=$_GET["nowPage"];
-			$nowBlock=$_GET["nowBlock"];
-		}else{
-			$nowPage=1;
-			$nowBlock=1;
-                }
-                $queryAll="select * from data";
-                $rs=mysqli_query($connect,$queryAll);
-                $totPage=ceil(mysqli_num_rows($rs)/10);
-		$totBlock=ceil($totPage/10);
-		
-		$startDataRow=($nowPage-1)*10;
-		$queryLimit="select * from data order by number desc limit $startDataRow,10";
-		$rsLimit=mysqli_query($connect,$queryLimit);
-
-
-        ?>
-        <caption style="text-align:left;caption-side:bottom"><br>
-				<?php 
-					$nowBlock=ceil($nowPage/10); //페이지번호가 10을 넘어가기 전까지 이 블록은 항상 1임
-
-					//prev 버튼
-					if($nowBlock>1){
-						$prevBlock=$nowBlock-1;
-						$prevStartPage=($prevBlock-1)*10+1;
-						print "<a href='paging.php?nowPage=$prevStartPage&nowBlock=$prevBlock'>prev</a>";
-						echo "&nbsp;&nbsp;";
-					}
-					//페이지번호 출력
-					$startPage=($nowBlock-1)*10+1;
-					$endPage=$startPage+9;
-					for($i=$startPage;$i<=$endPage;$i++){
-						if($nowPage==$i) $col="red";
-						else $col="#cccccc";
-						
-						if($i>$totPage){break;}//페이지 더 없으면 넘어강
-						echo " <a href='paging.php?nowPage=$i&nowBlock=$nowBlock'>
-						<font color=$col>".$i."</font></a> ";
-					}
-					//next 버튼
-					if($nowBlock<$totBlock){
-						echo "&nbsp;&nbsp;";
-						$nextBlock=$nowBlock+1;
-						$nextStartPage=($nextBlock-1)*10+1;
-						print " <a href='paging.php?nowPage=$nextStartPage&nowBlock=$nextBlock'>next</a>";
-					}
-				?>
-				<br>
-				<br>
-				<button type="button" onclick="location.href='notice_write.php'">새글쓰기</button>
-			</caption>
 			
 		</tfoot>
         <tbody>
+     
         <?php   
                 
-                while($rows = mysqli_fetch_assoc($result)){ //DB에 저장된 데이터 수 (열 기준)
-                     //while($row=mysqli_fetch_array($rsLimit)){
+                while($rows = mysqli_fetch_assoc($result)){
                         if($total%2==0){
         ?>                      <tr class = "even">
                         <?php   }
                         else{
         ?>                      <tr>
                         <?php } ?>
-                <td width = "50" align = "center"><?php echo $total?></td>
+                        
+                <td width = "50" align = "center"><?php echo $rows['no']?></td> <!--고유 번호-->
                 <td width = "500" align = "center">
-                <a href = "view.php?number=<?php echo $rows['numbers']?>">
+                <a href="./view.php?number=<?php echo $row['numbers']?>"></a>
                 <?php echo $rows['number']?></td>
                   <td width = "100" align = "center"><?php echo $rows['time']?></td>
                 <td width = "200" align = "center"><?php echo $rows['value']?></td>
@@ -153,13 +201,12 @@
         </tbody>
         </table>
         <div class = text>
-        <button><font style="cursor: hand"onClick="location.href='./write.php'">writing</font></butoon>
+        <div class="paging">
+
+<?php echo $paging ?>
+
+</div>
+        
         </div>
- 
- 
- 
- 
- 
- 
 </body>
 </html>

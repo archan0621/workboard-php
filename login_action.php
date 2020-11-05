@@ -35,7 +35,7 @@
  
                 else {
         ?>              <script>
-                                alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+                                alert("비밀번호가 잘못되었습니다.");
                                 history.back();
                         </script>
         <?php
@@ -45,7 +45,7 @@
  
                 else{
 ?>              <script>
-                        alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+                        alert("아이디가 잘못되었습니다.");
                         history.back();
                 </script>
 <?php
