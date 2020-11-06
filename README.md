@@ -17,7 +17,6 @@ Files Include
 * write.php -> write_action.php (글 작성)
 * export.php(테이블의 데이터를 엑셀로 출력)
 * highchart.php (테이블의 데이터를 그래프로 출력)
-* 
 ***
 Functions Include
 -------
