@@ -79,6 +79,9 @@
                 $result = $connect->query($query);
                 $total = mysqli_num_rows($result);
                 
+                $chartquery ="select * from data order by number desc";
+                $chartresult = $connect->query($chartquery);
+
                 session_start();
                 
                 if(isset($_SESSION['userid'])) {
@@ -91,7 +94,7 @@
                         <button><font style="cursor: hand"onClick="location.href='./write.php'">글 쓰기</font></button>
                         <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
                 <?php   
-                while ($row = mysqli_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($chartresult)) {
                        $number[] = $row['number'];
                        $value[] = $row['value'];
                        $degree[] = $row['degree'];
@@ -299,16 +302,16 @@ plotOptions: {
 
 series: [{
   name: '계량기 번호',
-  data: [null]
+  data: [<?php echo join($number, ',') ?>]
 }, {
   name: '적산치',
   data: [<?php echo join($value, ',') ?>]
 }, {
   name: '이전 적산치 차수',
-  data: [null]
+  data: [<?php echo join($degree, ',') ?>]
 }, {
   name: '적산치 환산값',
-  data: [null]
+  data: [<?php echo join($conver, ',') ?>]
 }],
 
 responsive: {
