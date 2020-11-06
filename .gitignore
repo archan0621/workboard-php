@@ -4,5 +4,5 @@ php-board-master
 webalizer
 xampp/
 /favicon.ico/
-/applications.html/
-/bitnami.css/
+applications.html
+bitnami.css
