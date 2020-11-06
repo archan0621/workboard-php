@@ -2,8 +2,6 @@
 
 $mysqli = new mysqli('localhost', 'root', 'root', 'board');
 
-
-
 header( "Content-type: application/vnd.ms-excel; charset=utf-8");
 
 header( "Content-Disposition: attachment; filename = data.xls" );     
@@ -30,47 +28,25 @@ $EXCEL_FILE = "
 
 ";
 
-
-
 $qry = "select * from data LIMIT 100000";
 
 $res = $mysqli->query($qry);
 
-
-
-
-
 while ($row = $res->fetch_object()) {
 
 $EXCEL_FILE .= "
-
     <tr>
-
        <td>".$row->number."</td>
-
        <td>".$row->time."</td>
-
        <td>".$row->value."</td>
-
        <td>".$row->degree."</td>
-
        <td>".$row->conver."</td>
-
     </tr>
-
 ";
 
 }
 
-
-
 $EXCEL_FILE .= "</table>";
-
-
-
-// 만든 테이블을 출력해줘야 만들어진 엑셀파일에 데이터가 나타납니다.
-
-
 
 echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
 

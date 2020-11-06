@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="page.css">
         <link rel="stylesheet" href="bootstrap.css">
         <link rel="stylesheet" href="bootstrap.min.css">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 <style>
         table{
@@ -33,6 +38,39 @@
         }
         a:link {color : #57A0EE; text-decoration:none;}
         a:hover { text-decoration : underline;}
+        .highcharts-figure, .highcharts-data-table table {
+                     min-width: 360px; 
+                     max-width: 800px;
+                     margin: 1em auto;
+              }             
+
+              .highcharts-data-table table {
+              	font-family: Verdana, sans-serif;
+              	border-collapse: collapse;
+              	border: 1px solid #EBEBEB;
+              	margin: 10px auto;
+              	text-align: center;
+              	width: 100%;
+              	max-width: 500px;
+              }
+              .highcharts-data-table caption {
+                  padding: 1em 0;
+                  font-size: 1.2em;
+                  color: #555;
+              }
+              .highcharts-data-table th {
+              	font-weight: 600;
+                  padding: 0.5em;
+              }
+              .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+                  padding: 0.5em;
+              }
+              .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+                  background: #f8f8f8;
+              }
+              .highcharts-data-table tr:hover {
+                  background: #f1f7ff;
+              }
 </style>
 <body>
 <?php
@@ -49,7 +87,15 @@
                         
                         <br/>
                         <button><font style="cursor: hand"onClick="location.href='./write.php'">글 쓰기</font></button>
-                
+                        <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
+                <?php
+                while ($row = mysqli_fetch_array($result)) {
+                       $number[] = $row['number'];
+                       $value[] = $row['value'];
+                       $degree[] = $row['degree'];
+                       $conver[] = $row['conver'];
+                }
+                ?>
         <?php
                 }
                 else {
@@ -80,11 +126,11 @@
 
         $row = $result->fetch_assoc();
 
-        $allPost = $row['cnt']; //전체 게시글의 수
+        $allPost = $row['cnt']; 
 
-        $onePage = 15; // 한 페이지에 보여줄 게시글의 수.
+        $onePage = 5; 
 
-        $allPage = ceil($allPost / $onePage); //전체 페이지의 수
+        $allPage = ceil($allPost / $onePage); 
 
         if($page < 1 || ($allPage && $page > $allPage)) {
             ?>
@@ -97,36 +143,34 @@
                 exit;
 
         }
-        $oneSection = 10; //한번에 보여줄 총 페이지 개수(1 ~ 10, 11 ~ 20 ...)
+        $oneSection = 10; 
 
-        $currentSection = ceil($page / $oneSection); //현재 섹션
+        $currentSection = ceil($page / $oneSection);
 
-        $allSection = ceil($allPage / $oneSection); //전체 섹션의 수
+        $allSection = ceil($allPage / $oneSection); 
 
-        $firstPage = ($currentSection * $oneSection) - ($oneSection - 1); //현재 섹션의 처음 페이지
+        $firstPage = ($currentSection * $oneSection) - ($oneSection - 1); 
 
         if($currentSection == $allSection) {
-                     $lastPage = $allPage; //현재 섹션이 마지막 섹션이라면 $allPage가 마지막 페이지가 된다.
+                     $lastPage = $allPage; 
         } else {
-                $lastPage = $currentSection * $oneSection; //현재 섹션의 마지막 페이지
+                $lastPage = $currentSection * $oneSection;
         }
-        $prevPage = (($currentSection - 1) * $oneSection); //이전 페이지, 11~20일 때 이전을 누르면 10 페이지로 이동.
+        $prevPage = (($currentSection - 1) * $oneSection); 
 
-        $nextPage = (($currentSection + 1) * $oneSection) - ($oneSection - 1); //다음 페이지, 11~20일 때 다음을 누르면 21 페이지로 이동.
+        $nextPage = (($currentSection + 1) * $oneSection) - ($oneSection - 1); 
 
-        $paging = '<ul>'; // 페이징을 저장할 변수
-
-        //첫 페이지가 아니라면 처음 버튼을 생성
+        $paging = '<ul>'; 
 
         if($page != 1) { 
 
-                $paging .= '<li class="page page_start"><a href="./paging.php?page=1">처음</a></li>';
+                $paging .= '<li class="page page_start"><a href="./test.php?page=1">처음</a></li>';
 
         }
-        //첫 섹션이 아니라면 이전 버튼을 생성
+        
         if($currentSection != 1) { 
 
-                $paging .= '<li class="page page_prev"><a href="./paging.php?page=' . $prevPage . '">이전</a></li>';
+                $paging .= '<li class="page page_prev"><a href="./test.php?page=' . $prevPage . '">이전</a></li>';
 
         }
 
@@ -134,30 +178,27 @@
                 if($i == $page) {
                         $paging .= '<li class="page current">' . $i . '</li>';
                 } else {
-                        $paging .= '<li class="page"><a href="./paging.php?page=' . $i . '">' . $i . '</a></li>';
+                        $paging .= '<li class="page"><a href="./test.php?page=' . $i . '">' . $i . '</a></li>';
                 }
         }
-        //마지막 섹션이 아니라면 다음 버튼을 생성
+       
         if($currentSection != $allSection) { 
-                $paging .= '<li class="page page_next"><a href="./paging.php?page=' . $nextPage . '">다음</a></li>';
+                $paging .= '<li class="page page_next"><a href="./test.php?page=' . $nextPage . '">다음</a></li>';
         }
 
-        //마지막 페이지가 아니라면 끝 버튼을 생
+       
         if($page != $allPage) { 
-                $paging .= '<li class="page page_end"><a href="./paging.php?page=' . $allPage . '">끝</a></li>';
+                $paging .= '<li class="page page_end"><a href="./test.php?page=' . $allPage . '">끝</a></li>';
         }
         $paging .= '</ul>';
 
-        /* 페이징 끝 */
+       
 
-        $currentLimit = ($onePage * $page) - $onePage; //몇 번째의 글부터 가져오는지
+        $currentLimit = ($onePage * $page) - $onePage; 
 
-        $sqlLimit = ' limit ' . $currentLimit . ', ' . $onePage; //limit sql 구문
+        $sqlLimit = ' limit ' . $currentLimit . ', ' . $onePage; 
 
         $sql = 'select * from ( select @rownum:=@rownum+1  no, 	A.* from data A, (select @rownum := 0) r where  1=1 order by number desc ) list' . $sqlLimit; //원하는 개수만큼 가져온다. (0번째부터 20번째까지
-
-        // SELECT * FROM ( SELECT @rownum:=@rownum+1  no, 	A.* FROM data A, (SELECT @ROWNUM := 0) R WHERE  1=1 order by number desc ) list limit 1, 10
-        // SELECT * FROM ( SELECT @rownum:=@rownum+1  no, A.* FROM data  A, (SELECT @ROWNUM := 0) R WHERE 1=1) list WHERE rnum >= 1 AND rnum <=15 
 
         $result = $connect->query($sql);
         ?>
@@ -165,6 +206,12 @@
         <h2 align=center>게시판</h2>
         <table align = center>
         <thead align = "center">
+        <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+          </p>
+        </figure>
+
         <tr>
         <td width ="80" align="center">고유번호</td> <!--고유번호-->
         <td width = "50" align="center">계량기 번호</td>
@@ -181,7 +228,7 @@
      
         <?php   
                 
-                while($rows = mysqli_fetch_assoc($result)){ //DB에 저장된 데이터 수 (열 기준)
+                while($rows = mysqli_fetch_assoc($result)){
                         if($total%2==0){
         ?>                      <tr class = "even">
                         <?php   }
@@ -191,7 +238,6 @@
                         
                 <td width = "50" align = "center"><?php echo $rows['no']?></td> <!--고유 번호-->
                 <td width = "500" align = "center">
-                <!--<a href = "view.php?number=<//?php echo $rows['numbers']?>">-->
                 <a href="./view.php?number=<?php echo $row['numbers']?>"></a>
                 <?php echo $rows['number']?></td>
                   <td width = "100" align = "center"><?php echo $rows['time']?></td>
@@ -213,5 +259,72 @@
 </div>
         
         </div>
+        <script type="text/javascript">
+
+Highcharts.chart('container', {
+
+title: {
+  text: '계량기 그래프'
+},
+
+yAxis: {
+  title: {
+    text: 'Number of Employees'
+  }
+},
+
+xAxis: {
+  accessibility: {
+    rangeDescription: 'Range: 2010 to 2017'
+  }
+},
+
+legend: {
+  layout: 'vertical',
+  align: 'right',
+  verticalAlign: 'middle'
+},
+
+plotOptions: {
+  series: {
+    label: {
+      connectorAllowed: false
+    },
+    pointStart: 2010
+  }
+},
+
+series: [{
+  name: '계량기 번호',
+  data: [null]
+}, {
+  name: '적산치',
+  data: [<?php echo join($value, ',') ?>]
+}, {
+  name: '이전 적산치 차수',
+  data: [null]
+}, {
+  name: '적산치 환산값',
+  data: [null]
+}],
+
+responsive: {
+  rules: [{
+    condition: {
+      maxWidth: 500
+    },
+    chartOptions: {
+      legend: {
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom'
+      }
+    }
+  }]
+}
+
+});
+
+</script>
 </body>
 </html>
