@@ -29,6 +29,7 @@
  
 </style>
 <body>
+        
 <?php
                 session_start();
                 $URL = "./index.php";
@@ -42,7 +43,6 @@
         <?php
                 }
         ?>
- 
         <form method = "get" action = "write_action.php">
         <table  style="padding-top:50px" align = center width=700 border=0 cellpadding=2 >
                 <tr>

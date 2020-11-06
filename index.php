@@ -83,9 +83,11 @@
                 
                 if(isset($_SESSION['userid'])) {
                         echo $_SESSION['userid'];?>님이(가) 접속중입니다.
-                        <button onclick="location.href='./logout.php'" style="margin-left:200px; vertical-align=top;">로그아웃</button>
+                        
                         
                         <br/>
+
+                        <button onclick="location.href='./logout.php'" style="margin-left:-5px; vertical-align=top;">로그아웃</button>
                         <button><font style="cursor: hand"onClick="location.href='./write.php'">글 쓰기</font></button>
                         <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
                 <?php   
@@ -270,13 +272,13 @@ title: {
 
 yAxis: {
   title: {
-    text: 'Number of Employees'
+    text: 'Number of LogData'
   }
 },
 
 xAxis: {
   accessibility: {
-    rangeDescription: 'Range: 2010 to 2017'
+    rangeDescription: 'Range: 2020 to 2020'
   }
 },
 
