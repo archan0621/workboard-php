@@ -3,8 +3,8 @@
 Development Environment<br>
 -----------------------
 Used language : php<br>
-Used DataBase : Mysql (MAMP/PHPMYADMIN)<br>
-Operating System : macOS Catalina<br>
+Used DataBase : Mysql (XAMPP/PHPMYADMIN)<br>
+Operating System : Windows 10<br>
 ***
 Files Include 
 ----------
@@ -15,6 +15,9 @@ Files Include
 * modify.php -> modify_action.php (수정)
 * view.php
 * write.php -> write_action.php (글 작성)
+* export.php(테이블의 데이터를 엑셀로 출력)
+* highchart.php (테이블의 데이터를 그래프로 출력)
+* 
 ***
 Functions Include
 -------
@@ -25,6 +28,9 @@ Functions Include
 * Write (글 작성)
 * Modify (글 수정)
 * Permission (글 읽기, 수정 권한)
+* Paging (페이징 기능)
+* Export to xlsx (엑셀 데이터로 추출)
+* HighChart(DB데이터 그래프로 출력)
 
 Contact
 -----
