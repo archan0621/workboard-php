@@ -200,7 +200,7 @@
 
         $sqlLimit = ' limit ' . $currentLimit . ', ' . $onePage; 
 
-        $sql = 'select * from ( select @rownum:=@rownum+1  no, 	A.* from data A, (select @rownum := 0) r where  1=1 order by number desc ) list' . $sqlLimit; //원하는 개수만큼 가져온다. (0번째부터 20번째까지
+        $sql = 'select * from ( select @rownum:=@rownum+1  no, 	A.* from data A, (select @rownum := 0) r where  1=1 order by number desc ) list' . $sqlLimit; //고유번호 query 
 
         $result = $connect->query($sql);
         ?>

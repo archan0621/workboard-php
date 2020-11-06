@@ -10,7 +10,7 @@
         $date = date('Y-m-d H:i:s');
  
         //입력받은 데이터를 DB에 저장
-        $query = "insert into member (id, pw, email, date, permit) values ('$id', '$pw', '$email', '$date', 0)";
+        $query = "insert into member (id, pw, date, permit) values ('$id', '$pw', '$date', 0)";
         
  
         $result = $connect->query($query);
