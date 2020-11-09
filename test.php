@@ -75,7 +75,7 @@
 <body>
 <?php
                 $connect = mysqli_connect('localhost', 'root', 'root', 'board') or die ("connect fail");
-                $query ="select * from data order by number desc";
+                $query ="select * from sdata";
                 $result = $connect->query($query);
                 $total = mysqli_num_rows($result);
                 
@@ -90,10 +90,10 @@
                         <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
                 <?php
                 while ($row = mysqli_fetch_array($result)) {
-                       $number[] = $row['number'];
-                       $value[] = $row['value'];
-                       $degree[] = $row['degree'];
-                       $conver[] = $row['conver'];
+                       $number[] = $row['LOG_SEQ'];
+                       $value[] = $row['ENERGY'];
+                       $degree[] = $row['WH'];
+                       $conver[] = $row['PT'];
                 }
                 ?>
         <?php
@@ -200,7 +200,7 @@
 
         $sql = 'select * from ( select @rownum:=@rownum+1  no, 	A.* from data A, (select @rownum := 0) r where  1=1 order by number desc ) list' . $sqlLimit; //원하는 개수만큼 가져온다. (0번째부터 20번째까지
 
-        $result = $connect->query($sql);
+        $result = $connect->query($result);
         ?>
         <h1>php+xampp+mysql</h1>
         <h2 align=center>게시판</h2>
@@ -240,10 +240,10 @@
                 <td width = "500" align = "center">
                 <a href="./view.php?number=<?php echo $row['numbers']?>"></a>
                 <?php echo $rows['number']?></td>
-                  <td width = "100" align = "center"><?php echo $rows['time']?></td>
-                <td width = "200" align = "center"><?php echo $rows['value']?></td>
-                <td width = "50" align = "center"><?php echo $rows['degree']?></td>
-                <td width="50" align="center"><?php echo $rows['conver']?></td>
+                  <td width = "100" align = "center"><?php echo $rows['LOG_SEQ']?></td>
+                <td width = "200" align = "center"><?php echo $rows['METER_SEQ']?></td>
+                <td width = "50" align = "center"><?php echo $rows['TIME']?></td>
+                <td width="50" align="center"><?php echo $rows['ENERGY']?></td>
                 </tr>                
         <?php
                 $total--;
