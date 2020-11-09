@@ -121,7 +121,7 @@ title: {
 
 yAxis: {
   title: {
-    text: 'Number of Employees'
+    text: 'Numbers'
   }
 },
 

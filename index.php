@@ -11,6 +11,7 @@
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <style>
         table{
@@ -71,6 +72,10 @@
               .highcharts-data-table tr:hover {
                   background: #f1f7ff;
               }
+              .paging{
+                      margin-top:60px;
+                      margin-left:750px;
+              }
 </style>
 <body>
 <?php
@@ -90,9 +95,9 @@
                         
                         <br/>
 
-                        <button onclick="location.href='./logout.php'" style="margin-left:-5px; vertical-align=top;">로그아웃</button>
-                        <button><font style="cursor: hand"onClick="location.href='./write.php'">글 쓰기</font></button>
-                        <button><font style="cursor: hand"onClick="location.href='./export.php'">추출하기</font></button>
+                        <button onclick="location.href='./logout.php'" class="btn btn-danger" style="margin-left:-5px; vertical-align=top;">로그아웃</button>
+                        <font style="cursor: hand" class="btn btn-warning" onClick="location.href='./write.php'">글 쓰기</font>
+                        <font style="cursor: hand" class="btn btn-success" onClick="location.href='./export.php'">추출하기</font>
                 <?php   
                 while ($row = mysqli_fetch_array($chartresult)) {
                        $number[] = $row['number'];
@@ -169,7 +174,7 @@
 
         if($page != 1) { 
 
-                $paging .= '<li class="page page_start"><a href="./index.php?page=1">처음</a></li>';
+                $paging .= '<li class="page page_start" ><a href="./index.php?page=1">처음</a></li>';
 
         }
         
@@ -207,7 +212,7 @@
 
         $result = $connect->query($sql);
         ?>
-        <h1>php+xampp+mysql</h1>
+        <!-- <h1>php+xampp+mysql</h1> -->
 
         <table align = center>
         <thead align = "center">
@@ -219,12 +224,12 @@
       
         <h2 align=center>게시판</h2>
         <tr>
-        <td width ="80" align="center">고유번호</td> <!--고유번호-->
+        <td width ="90" align="center">고유번호</td> <!--고유번호-->
         <td width = "50" align="center">계량기 번호</td>
         <td width = "500" align = "center">데이터 입력시간</td>
         <td width = "100" align = "center">적산치</td>
         <td width = "200" align = "center">이전 적산치 차수</td>
-        <td width = "50" align = "center">시간당 적산 환산값</td>
+        <td width = "160" align = "center">시간당 적산 환산값</td>
         </tr>
 
         </thead>
@@ -244,7 +249,7 @@
                         
                 <td width = "50" align = "center"><?php echo $rows['no']?></td> <!--고유 번호-->
                 <td width = "500" align = "center">
-                <a href="./view.php?number=<?php echo $row['numbers']?>"></a>
+                <!-- <a href="./view.php?number=<//?php echo $row['numbers']?>"></a> -->
                 <?php echo $rows['number']?></td>
                   <td width = "100" align = "center"><?php echo $rows['time']?></td>
                 <td width = "200" align = "center"><?php echo $rows['value']?></td>
