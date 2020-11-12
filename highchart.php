@@ -58,15 +58,15 @@ while($row = mysqli_fetch_array($result)){
           @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 
           .highcharts-figure, .highcharts-data-table table {
-                 min-width: 36px;
-                 margin: 1em auto;
+            min-width: 36px;
+            margin: 1em auto;
           }       
           .highcharts-figure {
             display: flex;
             flex-direction: row;
           }
           .highcharts-figure > div {
-              flex: 1;
+            flex: 1;
           }
           .highcharts-data-table table {
           	font-family: Verdana, sans-serif;
@@ -78,22 +78,22 @@ while($row = mysqli_fetch_array($result)){
           	max-width: 500px;
           }
           .highcharts-data-table caption {
-              padding: 1em 0;
-              font-size: 1.2em;
-              color: #555;
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
           }
           .highcharts-data-table th {
           	font-weight: 600;
-              padding: 0.5em;
+            padding: 0.5em;
           }
           .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-              padding: 0.5em;
+            padding: 0.5em;
           }
           .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-              background: #f8f8f8;
+            background: #f8f8f8;
           }
           .highcharts-data-table tr:hover {
-              background: #f1f7ff;
+            background: #f1f7ff;
           }
           body{
             height:969px;
@@ -104,13 +104,13 @@ while($row = mysqli_fetch_array($result)){
 <body>
 <script>
 function getExcel() {
-  const startDate = document.getElementById("sdate").value;
-  const startTime = document.getElementById("stime").value;
-  const endDate = document.getElementById("edate").value;
-  const endTime = document.getElementById("etime").value;
+      const startDate = document.getElementById("sdate").value;
+      const startTime = document.getElementById("stime").value;
+      const endDate = document.getElementById("edate").value;
+      const endTime = document.getElementById("etime").value;
 
-  var popup = window.open("/exportchart.php?sdate=" + startDate + "&stime="+startTime+"&edate="+endDate+"&etime="+endTime);
-}
+      var popup = window.open("/exportchart.php?sdate=" + startDate + "&stime="+startTime+"&edate="+endDate+"&etime="+endTime);
+  }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -169,7 +169,7 @@ function getExcel() {
     <div id="container29" style="height: 300px"></div>
     <div id="container30" style="height: 300px"></div>
 </figure>
-<!-- <figure class="highcharts-figure">
+<!-- <figure class="highcharts-figure"> for fixing highchart error #13 not neccesary
     <div id="container31" style="height: 300px"></div>
     <div id="container32" style="height: 300px"></div>
     <div id="container33" style="height: 300px"></div>
@@ -178,7 +178,6 @@ function getExcel() {
 </html>
 <script type="text/javascript">
 <?php
-
 
 for($j = 1; $j < count($infoArray) ; $j++){
 
@@ -219,7 +218,7 @@ for($j = 1; $j < count($infoArray) ; $j++){
 
       xAxis: {
         accessibility: {
-          rangeDescription: 'Range: 2010 to 2017'
+          rangeDescription: ''
         }
       },
 
@@ -234,7 +233,7 @@ for($j = 1; $j < count($infoArray) ; $j++){
           label: {
             connectorAllowed: false
           },
-          pointStart: 2010
+          pointStart: 0
         }
       },
 

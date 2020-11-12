@@ -28,8 +28,7 @@
         }
  
 </style>
-<body>
-        
+<body>    
 <?php
                 session_start();
                 $URL = "./index.php";

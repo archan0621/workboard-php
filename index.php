@@ -41,7 +41,7 @@
         a:hover { text-decoration : underline;}
         .highcharts-figure, .highcharts-data-table table {
                      min-width: 360px; 
-                     max-width: 800px;
+                     max-width: 10000px;
                      margin: 1em auto;
               }             
 

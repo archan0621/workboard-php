@@ -32,8 +32,8 @@ $EXCEL_FILE = "
 
 ";
 
-$sdate = $_GET['sdate'] != null ? $_GET['sdate'] : "1970-01-01";
-$edate = $_GET['edate'] != null ? $_GET['edate'] : "1970-01-01";
+$sdate = $_GET['sdate'] != null ? $_GET['sdate'] : "2020-01-01";
+$edate = $_GET['edate'] != null ? $_GET['edate'] : "2020-01-01";
 
 $stime = $_GET['stime'] != null ? $_GET['stime'] : "00:00";
 $etime = $_GET['etime'] != null ? $_GET['etime'] : "23:59";

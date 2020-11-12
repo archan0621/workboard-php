@@ -1,6 +1,5 @@
 <?php
-$connect = mysqli_connect('localhost','root','root','inject');
-
+$connect = mysqli_connect('localhost','root','root','inject');w
 ?>
 
 <form action="" method="get">
