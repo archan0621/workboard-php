@@ -96,8 +96,9 @@
                         <br/>
 
                         <button onclick="location.href='./logout.php'" class="btn btn-danger" style="margin-left:-5px; vertical-align=top;">로그아웃</button>
-                        <font style="cursor: hand" class="btn btn-warning" onClick="location.href='./write.php'">글 쓰기</font>
+                        <font style="cursor: hand" class="btn btn-warning" onClick="location.href='./terminal.html'">글 쓰기</font>
                         <font style="cursor: hand" class="btn btn-success" onClick="location.href='./export.php'">추출하기</font>
+                        <button onclick="location.href='./highchart.php'" class="btn btn-info">모든차트</button>
                 <?php   
                 while ($row = mysqli_fetch_array($chartresult)) {
                        $number[] = $row['number'];
@@ -109,7 +110,7 @@
         <?php
                 }
                 else {
-        ?>              <button onclick="location.href='./login.php'">로그인</button>
+        ?>              <button  class="btn btn-success" onclick="location.href='./login.php'">로그인</button>
                         <br />
         <?php   }
         ?>

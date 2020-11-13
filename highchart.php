@@ -31,10 +31,8 @@ $result = $connect->query($query);
 
 while($row = mysqli_fetch_array($result)){
   $sdata = array(
-    'energy' => $row['ENERGY'],
     'wh' => $row['WH'],
-    'pt' => $row['PT'],
-    'degree' => $row['DEGREE']
+    'time' => $row['time']
   );
 
   for ($i = 0; $i < count($infoArray) ; $i++) {
@@ -43,9 +41,13 @@ while($row = mysqli_fetch_array($result)){
     }
   }
 }
-// echo "<pre>";
-// print_r($infoArray);
-// echo "</pre>";
+
+$stimeString = $sdate.$stime;
+$etimeString = $edate.$etime;
+$st = strtotime($stimeString);
+$et = strtotime($etimeString);
+
+echo $st;
 
 ?>  
 <!DOCTYPE html>
@@ -56,7 +58,6 @@ while($row = mysqli_fetch_array($result)){
        <title>highcharts</title>
       <style>
           @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-
           .highcharts-figure, .highcharts-data-table table {
             min-width: 36px;
             margin: 1em auto;
@@ -126,48 +127,48 @@ function getExcel() {
   <input type="time" class="btn btn-dark" name="etime" id="etime" value="<?=$etime?>">
   <button type="submit" class="btn btn-success">입력</button>
   <button class="btn btn-danger" onclick="getExcel();" class="btn btn-danger">추출</button>
-            </form>
+</form>
 <figure class="highcharts-figure">
     <div id="container1" style="height: 300px"></div>
     <div id="container2" style="height: 300px"></div>
     <div id="container3" style="height: 300px"></div>
     <div id="container4" style="height: 300px"></div>
     <div id="container5" style="height: 300px"></div>
-    </figure>
-<figure class="highcharts-figure">
-    <div id="container6" style="height: 300px"></div>
-    <div id="container7" style="height: 300px"></div>
-    <div id="container8" style="height: 300px"></div>
-    <div id="container9" style="height: 300px"></div>
-    <div id="container10" style="height: 300px"></div>
-</figure>
-<figure class="highcharts-figure">
+    </figure>                                                                                                                                                                                                                   
+<figure class="highcharts-figure">                                                                                                                                                                                                                    
+    <div id="container6" style="height: 300px"></div>  
+    <div id="container7" style="height: 300px"></div>  
+    <div id="container8" style="height: 300px"></div>  
+    <div id="container9" style="height: 300px"></div>  
+    <div id="container10"style="height: 300px"></div>   
+</figure>                                                                                                                                                                                                                   
+<figure class="highcharts-figure">                                                                                                                                                                                                                    
     <div id="container11" style="height: 300px"></div>
     <div id="container12" style="height: 300px"></div>
     <div id="container13" style="height: 300px"></div>
     <div id="container14" style="height: 300px"></div>
     <div id="container15" style="height: 300px"></div>
-</figure>
-<figure class="highcharts-figure">
-    <div id="container16" style="height: 300px"></div>
-    <div id="container17" style="height: 300px"></div>
-    <div id="container18" style="height: 300px"></div>
-    <div id="container19" style="height: 300px"></div>
-    <div id="container20" style="height: 300px"></div>
-</figure>
-<figure class="highcharts-figure">
-    <div id="container21" style="height: 300px"></div>
-    <div id="container22" style="height: 300px"></div>
-    <div id="container23" style="height: 300px"></div>
-    <div id="container24" style="height: 300px"></div>
-    <div id="container25" style="height: 300px"></div>
-</figure>
-<figure class="highcharts-figure">
-    <div id="container26" style="height: 300px"></div>
-    <div id="container27" style="height: 300px"></div>
-    <div id="container28" style="height: 300px"></div>
-    <div id="container29" style="height: 300px"></div>
-    <div id="container30" style="height: 300px"></div>
+</figure>                                                                                                                                                                                                                   
+<figure class="highcharts-figure">                                                                                                                                                                                                                    
+    <div id="container16" style="height: 300px"></div>                                                                                                                                                 
+    <div id="container17" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container18" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container19" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container20" style="height: 300px"></div>                                                                                                                                                                                                                    
+</figure>                                                                                                                                                                                                                   
+<figure class="highcharts-figure">                                                                                                                                                                                                                    
+    <div id="container21" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container22" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container23" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container24" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container25" style="height: 300px"></div>                                                                                                                                                                                                                    
+</figure>                                                                                                                                                                                                                   
+<figure class="highcharts-figure">                                                                                                                                                                                                                    
+    <div id="container26" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container27" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container28" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container29" style="height: 300px"></div>                                                                                                                                                                                                                    
+    <div id="container30" style="height: 300px"></div>                                                                                                                                                                                                                    
 </figure>
 <!-- <figure class="highcharts-figure"> for fixing highchart error #13 not neccesary
     <div id="container31" style="height: 300px"></div>
@@ -177,37 +178,32 @@ function getExcel() {
 </body>
 </html>
 <script type="text/javascript">
+console.log(new Date('<?php echo $sdate?> <?php echo $stime?>'));
+console.log(new Date('<?php echo $sdate?> <?php echo $etime?>'));
 <?php
 
-for($j = 1; $j < count($infoArray) ; $j++){
-
-
-      $energy = [];
-      $wh = [];
-      $pt = [];
-      $degree = [];
-      for($k = 1 ; $k < count($infoArray[$j]['data']) ; $k++) {
-        $logData = $infoArray[$j]['data'][$k];
-        
-        array_push($energy, $logData['energy']);
-        array_push($wh,$logData['wh']);
-        array_push($pt, $logData['pt']);
-        array_push($degree, $logData['degree']);
+      for($j = 1; $j < count($infoArray) ; $j++){
+          // $energy = [];
+          $wh = [];
+          // $pt = [];
+          // $degree = [];
+          for($k = 1 ; $k < count($infoArray[$j]['data']) ; $k++) {
+            $logData = $infoArray[$j-1]['data'][$k];
+            
+            // array_push($energy, $logData['energy']);
+            array_push($wh,$logData['wh']);
+            // array_push($pt, $logData['pt']);
+            // array_push($degree, $logData['degree']);
       }
-
-
-      $energyTemp = sizeof($energy) > 0 ? join($energy, ',') : ""; 
+      // $energyTemp = sizeof($energy) > 0 ? join($energy, ',') : ""; 
       $whTemp = sizeof($wh) > 0 ? join($wh,',') : "";
-      $ptTemp = sizeof($pt) > 0 ? join($pt ,',') : "";
-      $degreeTemp = sizeof($degree) > 0 ? join($degree ,',') : "";
+      // $ptTemp = sizeof($pt) > 0 ? join($pt ,',') : "";
+      // $degreeTemp = sizeof($degree) > 0 ? join($degree ,',') : "";
       ?>
-      
-
-      let chart<?php echo $j?> = Highcharts.chart('container<?php echo $j?>', {
+    let chart<?php echo $j?> = Highcharts.chart('container<?php echo $j?>', {
       title: {
-        text: '<?php echo $infoArray[$j]['name']?>'
+        text: '<?php echo $infoArray[$j-1]['name']?> <?php echo $j?>번'
       },
-
       yAxis: {
         title: {
           text: 'Numbers',
@@ -217,6 +213,10 @@ for($j = 1; $j < count($infoArray) ; $j++){
       },
 
       xAxis: {
+      type:'datetime',
+      dateTimeLabelFormats: {
+          day: '%y %b %e',
+      },
         accessibility: {
           rangeDescription: ''
         }
@@ -237,18 +237,9 @@ for($j = 1; $j < count($infoArray) ; $j++){
         }
       },
 
-      series: [{
-        name: '에너지',
-        data: [<?php echo $energyTemp?>]
-      }, {
+      series: [{ 
         name: '와트시',
-        data: [<?php echo $whTemp ?>]
-      }, {
-        name: '변성 비율',
-        data: [<?php echo $ptTemp?>]
-      }, {
-        name: '값',
-        data: [<?php echo $degreeTemp?>]
+        data: [<?php echo $whTemp?>]
       }],
 
       responsive: {

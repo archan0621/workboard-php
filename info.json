@@ -1,0 +1,41 @@
+[
+{"type":"header","version":"5.0.3","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"board"},
+{"type":"table","name":"info","database":"board","data":
+[
+{"meter_seq":"1","meter_id":"84566886","location_name":"대한제강 녹산"},
+{"meter_seq":"2","meter_id":"84566858","location_name":"대한제강 녹산"},
+{"meter_seq":"3","meter_id":"84566885","location_name":"동국제강 인천"},
+{"meter_seq":"4","meter_id":"84566890","location_name":"동국제강 인천"},
+{"meter_seq":"5","meter_id":"84566893","location_name":"동국제강 포항"},
+{"meter_seq":"6","meter_id":"84566853","location_name":"동일산업"},
+{"meter_seq":"7","meter_id":"84566870","location_name":"동일산업"},
+{"meter_seq":"8","meter_id":"84566862","location_name":"동일산업"},
+{"meter_seq":"9","meter_id":"84566861","location_name":"동일산업"},
+{"meter_seq":"10","meter_id":"84566855","location_name":"세이베스틸 군산"},
+{"meter_seq":"11","meter_id":"84566884","location_name":"세이베스틸 군산"},
+{"meter_seq":"12","meter_id":"84566891","location_name":"세이베스틸 군산"},
+{"meter_seq":"13","meter_id":"84566888","location_name":"세아창원특수강"},
+{"meter_seq":"14","meter_id":"84566881","location_name":"세아창원특수강"},
+{"meter_seq":"15","meter_id":"84566906","location_name":"태웅 제강사업부"},
+{"meter_seq":"16","meter_id":"84566905","location_name":"태웅 제강사업부"},
+{"meter_seq":"17","meter_id":"84566871","location_name":"한국기초소재"},
+{"meter_seq":"18","meter_id":"84566859","location_name":"한국제강"},
+{"meter_seq":"19","meter_id":"84566882","location_name":"한국철강"},
+{"meter_seq":"20","meter_id":"84566857","location_name":"한국특수형강"},
+{"meter_seq":"21","meter_id":"84566865","location_name":"한국특수형강"},
+{"meter_seq":"22","meter_id":"84566869","location_name":"현대제철 당진"},
+{"meter_seq":"23","meter_id":"84566864","location_name":"현대제철 당진"},
+{"meter_seq":"24","meter_id":"84566887","location_name":"현대제철 인천"},
+{"meter_seq":"25","meter_id":"84566883","location_name":"현대제철 인천"},
+{"meter_seq":"26","meter_id":"84566854","location_name":"현대제철 인천"},
+{"meter_seq":"27","meter_id":"84566892","location_name":"현대제철 인천"},
+{"meter_seq":"28","meter_id":"84566866","location_name":"현대제철 인천"},
+{"meter_seq":"29","meter_id":"84566860","location_name":"현대제철 포항 1공장"},
+{"meter_seq":"30","meter_id":"84566867","location_name":"현대제철 포항 1공장"},
+{"meter_seq":"31","meter_id":"84566868","location_name":"현대제철 포항 2공장"},
+{"meter_seq":"32","meter_id":"84566889","location_name":"환영철강공업"},
+{"meter_seq":"33","meter_id":"84566852","location_name":"호디테스트장비"}
+]
+}
+]
