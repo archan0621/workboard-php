@@ -29,7 +29,10 @@ Functions Include
 * Permission (글 읽기, 수정 권한)
 * Paging (페이징 기능)
 * Export to xlsx (엑셀 데이터로 추출)
+* Export to xlsx with Date option (특정 날짜나 기간의 데이터만 추출)
 * HighChart(DB데이터 그래프로 출력)
+* Date to Date(특정 날짜의 사이의 데이터 그래프 출력)
+* FOR TO BACK DATE(특정 시간의 앞뒤 30분간의 데이터 그래프 출력)
 
 Contact
 -----

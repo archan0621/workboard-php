@@ -25,8 +25,6 @@ while ($row = mysqli_fetch_array($result)) {
   array_push($infoArray, $data);
 }
 
-
-
 $query = "select * from sdata where STR_TO_DATE('".$sdate." ".$stime.":00','%Y-%m-%d %H:%i:%s') <= time and time <= STR_TO_DATE('".$edate." ".$etime.":00','%Y-%m-%d %H:%i:%s') order by time";
 
 $result = $connect->query($query);
