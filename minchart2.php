@@ -3,10 +3,8 @@ ini_set('display_errors', '0');
 $connect = mysqli_connect('localhost','root','root','board') or die("connect fail");
 
 @$sdate = $_GET['sdate'] != null ? $_GET['sdate'] : "2020-01-01";
-@$edate = $_GET['edate'] != null ? $_GET['edate'] : "2020-01-01";
-
 @$stime = $_GET['stime'] != null ? $_GET['stime'] : "00:00";
-@$etime = $_GET['etime'] != null ? $_GET['etime'] : "00:01";
+
 
 $infoArray = array();
 
@@ -25,16 +23,14 @@ while ($row = mysqli_fetch_array($result)) {
   array_push($infoArray, $data);
 }
 
-
-
-$query = "select * from sdata where STR_TO_DATE('".$sdate." ".$stime.":00','%Y-%m-%d %H:%i:%s') <= time and time <= STR_TO_DATE('".$edate." ".$etime.":00','%Y-%m-%d %H:%i:%s') order by time";
+$query = "SELECT * FROM sdata WHERE time BETWEEN DATE_SUB('".$sdate." ".$stime.":00', INTERVAL 30 MINUTE) AND '".$sdate." ".$stime.":00' order by time";
 
 $result = $connect->query($query);
 
 while($row = mysqli_fetch_array($result)){
   $sdata = array(
     'wh' => $row['WH'],
-    'time' => $row['TIME']
+    'time' => $row['time']
   );
 
   for ($i = 0; $i < count($infoArray) ; $i++) {
@@ -43,11 +39,13 @@ while($row = mysqli_fetch_array($result)){
     }
   }
 }
-$stimeString = $sdate.$stime;
-$etimeString = $edate.$etime;
-$st = strtotime($stimeString);
-$et = strtotime($etimeString);
 
+$stimeString = $sdate.$stime;
+// $etimeString = $edate.$etime;
+$st = strtotime($stimeString);
+// $et = strtotime($etimeString);
+
+echo $st;
 
 ?>  
 <!DOCTYPE html>
@@ -107,10 +105,8 @@ $et = strtotime($etimeString);
 function getExcel() {
       const startDate = document.getElementById("sdate").value;
       const startTime = document.getElementById("stime").value;
-      const endDate = document.getElementById("edate").value;
-      const endTime = document.getElementById("etime").value;
 
-      var popup = window.open("/exportchart.php?sdate=" + startDate + "&stime="+startTime+"&edate="+endDate+"&etime="+endTime);
+      var popup = window.open("/exportchart.php?sdate=" + startDate + "&stime="+startTime);
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -120,11 +116,9 @@ function getExcel() {
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<form action="ajaxchart.php" method="get">
+<form action="minchart2.php" method="get">
   <input type="date" class="btn btn-dark" name="sdate" id="sdate" value="<?=$sdate?>">
-  <input type="time" class="btn btn-dark" name="stime" id="stime" value="<?=$stime?>"> ~
-  <input type="date" class="btn btn-dark" name="edate" id="edate" value="<?=$edate?>">
-  <input type="time" class="btn btn-dark" name="etime" id="etime" value="<?=$etime?>">
+  <input type="time" class="btn btn-dark" name="stime" id="stime" value="<?=$stime?>">
   <button type="submit" class="btn btn-success">입력</button>
   <button class="btn btn-danger" onclick="getExcel();" class="btn btn-danger">추출</button>
 </form>
@@ -170,7 +164,7 @@ function getExcel() {
     <div id="container29" style="height: 300px"></div>                                                                                                                                                                                                                    
     <div id="container30" style="height: 300px"></div>                                                                                                                                                                                                                    
 </figure>
-<!-- <figure class="highcharts-figure">
+<!-- <figure class="highcharts-figure"> for fixing highchart error #13 not neccesary
     <div id="container31" style="height: 300px"></div>
     <div id="container32" style="height: 300px"></div>
     <div id="container33" style="height: 300px"></div>
@@ -178,81 +172,86 @@ function getExcel() {
 </body>
 </html>
 <script type="text/javascript">
-const seriesList = <?=json_encode($infoArray)?>.map(option => {
-    return {
-        type: 'spline',
-        name: option.name,
-        id: option.id,
-        data: option.data.map(entry => {
-            return {
-                x: new Date(entry.time).getTime(),
-                y: parseInt(entry.wh)
-            }
-        })
-    }
-});
-seriesList.forEach((series, index) => {
-    console.log(series);
-    Highcharts.chart(`container${index + 1}`, {
-        time: {
-            timezoneOffset: -9 * 60
-        },
+console.log(new Date('<?php echo $sdate?> <?php echo $stime?>'));
+console.log(new Date('<?php echo $sdate?> <?php echo $etime?>'));
+<?php
+
+      for($j = 1; $j < count($infoArray) ; $j++){
+          // $energy = [];
+          $wh = [];
+          // $pt = [];
+          // $degree = [];
+          for($k = 1 ; $k < count($infoArray[$j]['data']) ; $k++) {
+            $logData = $infoArray[$j-1]['data'][$k];
+            
+            // array_push($energy, $logData['energy']);
+            array_push($wh,$logData['wh']);
+            // array_push($pt, $logData['pt']);
+            // array_push($degree, $logData['degree']);
+      }
+      // $energyTemp = sizeof($energy) > 0 ? join($energy, ',') : ""; 
+      $whTemp = sizeof($wh) > 0 ? join($wh,',') : "";
+      // $ptTemp = sizeof($pt) > 0 ? join($pt ,',') : "";
+      // $degreeTemp = sizeof($degree) > 0 ? join($degree ,',') : "";
+      ?>
+    let chart<?php echo $j?> = Highcharts.chart('container<?php echo $j?>', {
+      title: {
+        text: '<?php echo $infoArray[$j-1]['name']?> <?php echo $j?>번'
+      },
+      yAxis: {
         title: {
-            text: `${series.name}${index + 1}번`
-        },
-        yAxis: {
-            title: {
-            text: 'Numbers',
-            height: 15,
-            endOnTick: false,
-            }
-        },
-        xAxis: {
-            type:'datetime',
-            dateTimeLabelFormats: {
-                day: '%y %b %e',
-            },
-            accessibility: {
-                rangeDescription: ''
-            },
-            tickInterval: 60000
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-        },
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 0
-            }
-        },
-        tooltip: {
-            xDateFormat: '%Y-%m-%d %H:%M',
-            valueDecimals: 2,
-            shared: true,
-            split: false
-        },
-        series: [series],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                    layout: 'horizontal',
-                    align: 'left',
-                    verticalAlign: 'bottom'
-                    }
-                }
-            }]
+          text: 'Numbers',
+          height: 15,
+          endOnTick: false,
         }
-    });
-});
+      },
 
+      xAxis: {
+      type:'datetime',
+      dateTimeLabelFormats: {
+          day: '%y %b %e',
+      },
+        accessibility: {
+          rangeDescription: ''
+        }
+      },
+
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+      },
+
+      plotOptions: {
+        series: {
+          label: {
+            connectorAllowed: false
+          },
+          pointStart: 0
+        }
+      },
+
+      series: [{ 
+        name: '와트시',
+        data: [<?php echo $whTemp?>]
+      }],
+
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'left',
+              verticalAlign: 'bottom'
+            }
+          }
+        }]
+      }
+      });
+      <?php
+      }
+      ?>
 </script>
-
